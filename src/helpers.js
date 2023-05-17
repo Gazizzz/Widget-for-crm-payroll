@@ -36,9 +36,9 @@ function month() {
   const firstDayMonth = dateFns.startOfMonth(today);
   strDatefrom = firstDayMonth;
   strDateto = lastDayMonth;
-  let getTimeMonthFrom = strDatefrom.getTime();
-  let getTimeMonthTo = strDateto.getTime();
-  return [getTimeMonthFrom, getTimeMonthTo];
+  let getTimeMonthFrom = strDatefrom.getTime() / 1000;
+  let getTimeMonthTo = strDateto.getTime() / 1000;
+  return { getTimeMonthFrom, getTimeMonthTo };
 }
 export {
   periodDay,
