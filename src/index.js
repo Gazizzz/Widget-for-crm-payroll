@@ -64,34 +64,39 @@ function filterLeadsComplete(leadss, managerId) {
 
 function renderManagers(managersArr) {
   const fragment = $(document.createDocumentFragment());
-
+  let num = 0;
   managersArr.forEach((manager, index) => {
-    let totalSumm = 0;
-    let totalSummFormatted;
+    if (
+      manager.name == "Евгения Ф. 8(909)886-75-17 (Кредитный специалист)" ||
+      manager.name == "Мариам А. 8(918)916-96-50 (Кредитный специалист)"
+    ) {
+      let totalSumm = 0;
+      let totalSummFormatted;
 
-    const $row = $("<tr>");
-    const $index = $("<td>").text(index + 1);
-    const $name = $("<td>").text(manager.name);
-    const $leadComletedCount = $("<td>").text(
-      manager.leadsFilterCompelted.length
-    );
-    for (let i = 0; i < manager.leadsFilterCompelted.length; i++) {
-      totalSumm += Number(manager.leadsFilterCompelted[i].lead_sum);
-      totalSummFormatted = totalSumm.toLocaleString("en-US");
+      const $row = $("<tr>");
+      const $index = $("<td>").text((num = num + 1));
+      const $name = $("<td>").text(manager.name);
+      const $leadComletedCount = $("<td>").text(
+        manager.leadsFilterCompelted.length
+      );
+      for (let i = 0; i < manager.leadsFilterCompelted.length; i++) {
+        totalSumm += Number(manager.leadsFilterCompelted[i].lead_sum);
+        totalSummFormatted = totalSumm.toLocaleString("en-US");
+      }
+      const $summ = $("<td>").text(totalSummFormatted);
+
+      const salary = Math.round((totalSumm / 100) * 10).toLocaleString("en-US");
+
+      let $salaryFormatted = $("<td>").text(salary);
+
+      $row
+        .append($index)
+        .append($name)
+        .append($leadComletedCount)
+        // .append($summ)
+        .append($salaryFormatted);
+      fragment.append($row);
     }
-    const $summ = $("<td>").text(totalSummFormatted);
-
-    const salary = Math.round((totalSumm / 100) * 10).toLocaleString("en-US");
-
-    let $salaryFormatted = $("<td>").text(salary);
-
-    $row
-      .append($index)
-      .append($name)
-      .append($leadComletedCount)
-      // .append($summ)
-      .append($salaryFormatted);
-    fragment.append($row);
   });
   $("table tbody").append(fragment);
 }
