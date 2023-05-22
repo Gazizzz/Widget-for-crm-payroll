@@ -13,7 +13,7 @@ let filterDateParams = {
   from: month().getTimeMonthFrom,
   to: month().getTimeMonthTo,
 };
-console.log(filterDateParams);
+// console.log(filterDateParams);
 function loadManagers() {
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -33,10 +33,11 @@ function loadManagers() {
   });
 }
 
-function loadLeadsComplete(managerId) {
+function loadLeadsComplete() {
   const queryParams = {
     type: "filter_complete_leads",
-    data: filterDateParams,
+    data: { from: "1682899200", to: "1685491200" },
+    // data: filterDateParams,
     // manager_id: managerId,
   };
   return new Promise((resolve, reject) => {
@@ -54,8 +55,8 @@ function loadLeadsComplete(managerId) {
     });
   });
 }
-function filterLeadsComplete(leadss, managerId) {
-  const filteredDatas = leadss.filter(
+function filterLeadsComplete(leads, managerId) {
+  const filteredDatas = leads.filter(
     (item) => Number(item.lead_responsible_id) == managerId
   );
 
@@ -103,6 +104,10 @@ function renderManagers(managersArr) {
 async function render() {
   const managers = await loadManagers();
   const leadsCompleted = await loadLeadsComplete();
+  console.log(leadsCompleted);
+  // let tt = leadsCompleted.forEach((items) => {
+  //   console.log(items.lead_closed_at);
+  // });
   const newManagerListWithLeads = managers.map(async (item) => {
     // const leads = await loadLeads(item.id);
 
