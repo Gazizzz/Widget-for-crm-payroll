@@ -1,4 +1,6 @@
 import * as dateFns from "date-fns";
+import "/src/style.css";
+
 import {
   periodDay,
   yesterday,
@@ -7,13 +9,38 @@ import {
   strDatefrom,
   strDateto,
   url,
+  getMonthByNumber,
+  getYearByNumber,
 } from "./helpers.js";
+let outFrom = document.querySelector(".out-from");
+let yearr = new Date().getFullYear();
+let periodMonth = document.querySelectorAll(".periodMonth");
+let periodYear = document.querySelectorAll(".periodYear");
+periodYear.forEach((year) => {
+  year.addEventListener("click", (e) => {
+    yearr = e.target.innerHTML;
+  });
+});
+
+periodMonth.forEach((month) => {
+  month.addEventListener("click", (e) => {
+    const monthNumber = Number(e.target.dataset.number) - 1;
+    console.log(yearr);
+    const monthQuery = getMonthByNumber(monthNumber, yearr);
+    const nameMonth = e.target.innerText;
+    outFrom.innerHTML = `Период: ${nameMonth} месяц ${yearr} года`;
+    render({
+      from: monthQuery.getTimeMonthFrom,
+      to: monthQuery.getTimeMonthTo,
+    });
+  });
+});
 
 let filterDateParams = {
   from: month().getTimeMonthFrom,
   to: month().getTimeMonthTo,
 };
-// console.log(filterDateParams);
+
 function loadManagers() {
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -33,11 +60,13 @@ function loadManagers() {
   });
 }
 
-function loadLeadsComplete() {
+function loadLeadsComplete(query) {
+  const filterQuery = query || filterDateParams;
+
   const queryParams = {
     type: "filter_complete_leads",
-    data: { from: "1682899200", to: "1685491200" },
-    // data: filterDateParams,
+    // data: { from: "1685577600", to: "1688169599" },
+    data: filterQuery,
     // manager_id: managerId,
   };
   return new Promise((resolve, reject) => {
@@ -65,7 +94,9 @@ function filterLeadsComplete(leads, managerId) {
 
 function renderManagers(managersArr) {
   const fragment = $(document.createDocumentFragment());
+  const tableEl = $(".js-tbody");
   let num = 0;
+
   managersArr.forEach((manager, index) => {
     if (
       manager.name == "Евгения Ф. 8(909)886-75-17 (Кредитный специалист)" ||
@@ -95,7 +126,9 @@ function renderManagers(managersArr) {
         totalSumm += Number(manager.leadsFilterCompelted[i].lead_sum);
         totalSummFormatted = totalSumm.toLocaleString("en-US");
       }
+
       const $summ = $("<td>").text(totalSummFormatted);
+      $summ.addClass(" js-Center");
 
       const salary = Math.round((totalSumm / 100) * 10).toLocaleString("en-US");
 
@@ -105,18 +138,21 @@ function renderManagers(managersArr) {
         .append($index)
         .append($name)
         .append($leadComletedCount)
-        // .append($summ)
+        .append($summ)
         .append($salaryFormatted);
 
       fragment.append($row);
     }
   });
-  $("table tbody").append(fragment);
+
+  tableEl.empty();
+  tableEl.append(fragment);
 }
 
-async function render() {
+async function render(query) {
   const managers = await loadManagers();
-  const leadsCompleted = await loadLeadsComplete();
+
+  const leadsCompleted = await loadLeadsComplete(query);
 
   const newManagerListWithLeads = managers.map(async (item) => {
     // const leads = await loadLeads(item.id);
@@ -125,7 +161,6 @@ async function render() {
     return { ...item, /*leads, leadsCompleted,*/ leadsFilterCompelted };
   });
   const result = await Promise.all(newManagerListWithLeads);
-
   console.log(result);
   renderManagers(result);
   const table = document.querySelector("#myTables");
@@ -138,8 +173,7 @@ async function render() {
   centerStyle.forEach((element) => {
     element.style.textAlign = "center";
   });
-  firstUserButton.addEventListener("click", (event) => {});
-
+  table.innerHTML = "";
   leadsCompleted.forEach((element, index) => {
     if (element.lead_responsible_id == "6889038") {
       console.log(element.lead_responsible_id == "6889038");
@@ -153,7 +187,7 @@ async function render() {
       companyName.style.marginRight = "20px";
       companyName.style.width = "300px";
       leadNumb.innerHTML = `${sumFirst}.`;
-      companyName.innerHTML = element.amo_company_name;
+      companyName.innerHTML = element.client_fio;
       leadAmoid.innerHTML = element.amo_lead_id;
       leadAmoid.classList = "firstTableAmoid";
       table.addEventListener("click", (event) => {
@@ -186,7 +220,7 @@ async function render() {
       table.appendChild(row);
     }
   });
-
+  tableSecond.innerHTML = "";
   leadsCompleted.map((element, index) => {
     if (element.lead_responsible_id == "9206253") {
       const row = document.createElement("tr");
@@ -203,7 +237,7 @@ async function render() {
       sumSecond = sumSecond + 1;
       leadNumb.innerHTML = `${sumSecond}.`;
 
-      companyName.innerText = element.amo_company_name;
+      companyName.innerText = element.client_fio;
       leadAmoid.innerHTML = element.amo_lead_id;
       leadAmoid.classList = "seconsTableAmoid";
       tableSecond.addEventListener("click", (event) => {
@@ -217,18 +251,6 @@ async function render() {
           );
         }
       });
-      // let amoId = document.querySelectorAll(".seconsTableAmoid");
-      // amoId.forEach((item) => {
-      //   item.addEventListener("click", (event) => {
-      //     const leadIdTarget = event.target.innerText;
-      //     // console.log(leadIdTarget);
-      //     window.open(
-      //       ` https://jenyanour.amocrm.ru/leads/detail/${leadIdTarget}`,
-      //       "_blank"
-      //     );
-      //   });
-      // });
-
       row.append(leadNumb);
       row.append(companyName);
       row.append(leadAmoid);

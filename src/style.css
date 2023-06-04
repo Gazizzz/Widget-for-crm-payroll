@@ -1,6 +1,11 @@
-table {
-  color: red;
+.header__dropDown {
+  display: flex;
 }
-.out3 {
-  color: red;
+.dropdown {
+  margin-right: 10px;
+}
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
 }

@@ -32,20 +32,40 @@ function startEndWeek() {
 }
 
 function month() {
-  const lastDayMonth = dateFns.lastDayOfMonth(today);
-  const firstDayMonth = dateFns.startOfMonth(today);
+  const firstDayMonth = dateFns.addDays(dateFns.startOfMonth(today), 1);
+  const lastDayMonth = dateFns.addDays(dateFns.lastDayOfMonth(today), 1);
   strDatefrom = firstDayMonth;
   strDateto = lastDayMonth;
   let getTimeMonthFrom = strDatefrom.getTime() / 1000;
+  // console.log(getTimeMonthFrom);
   let getTimeMonthTo = strDateto.getTime() / 1000;
   return { getTimeMonthFrom, getTimeMonthTo };
+}
+
+function getMonthByNumber(monthNumber, year) {
+  const dateWithSpecificMonth = dateFns.setMonth(new Date(), monthNumber); // Set the specified month
+
+  const testYear = dateFns.setYear(new Date(dateWithSpecificMonth), year);
+  // console.log({ month, monthNumber });
+  console.log(testYear);
+  const firstDayMonth = dateFns.addDays(dateFns.startOfMonth(testYear), 1);
+  const lastDayMonth = dateFns.addDays(dateFns.lastDayOfMonth(testYear), 1);
+
+  strDatefrom = firstDayMonth;
+  strDateto = lastDayMonth;
+  let getTimeMonthFrom = strDatefrom.getTime() / 1000;
+  console.log(getTimeMonthFrom);
+  let getTimeMonthTo = strDateto.getTime() / 1000;
+  return {
+    getTimeMonthFrom,
+    getTimeMonthTo,
+  };
 }
 export {
   periodDay,
   yesterday,
   startEndWeek,
   month,
-  strDatefrom,
-  strDateto,
-  url,
+  getMonthByNumber,
+  // getYearByNumber,
 };

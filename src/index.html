@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="/src/style.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -13,13 +13,124 @@
   </head>
   <body>
     <div class="out3"></div>
-    <div style="font-weight: 600">Период: текущий месяц.</div>
+    <div class="header">
+      <div class="header__dropDown">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Месяц
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="01"
+                >Январь</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="02"
+                >Февраль</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="03"
+                >Март</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="04"
+                >Апрель</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="05"
+                >Май</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="06"
+                >Июнь</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="07"
+                >Июль</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="08"
+                >Август</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="09"
+                >Сентябрь</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="10"
+                >Октябрь</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="11"
+                >Ноябрь</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item periodMonth" href="#" data-number="12"
+                >Декабрь</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Год
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <a class="dropdown-item periodYear" href="#">2023</a>
+            </li>
+            <li><a class="dropdown-item periodYear" href="#">2024</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2025</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2026</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2027</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2028</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2029</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2030</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2031</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2032</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2033</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2034</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2035</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2036</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2037</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2038</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2039</a></li>
+            <li><a class="dropdown-item periodYear" href="#">2040</a></li>
+          </ul>
+        </div>
+      </div>
+      <div><div class="out-from">период: текущий месяц</div></div>
+    </div>
     <table class="table js-table">
       <thead class="thead js-thead">
         <th scope="col">#</th>
         <th scope="col">Cотрудник</th>
         <th scope="col " style="text-align: center">Количество продаж</th>
         <!-- <th scope="col">Сумма за период</th> -->
+        <th scope="col" style="text-align: center">Сумма собранной коммисии</th>
         <th scope="col" style="text-align: center">Зарплата</th>
       </thead>
       <tbody class="js-tbody table-group-divider"></tbody>
