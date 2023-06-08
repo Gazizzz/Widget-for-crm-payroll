@@ -32,10 +32,14 @@ function startEndWeek() {
 }
 
 function month() {
-  const firstDayMonth = dateFns.addDays(dateFns.startOfMonth(today), 1);
-  const lastDayMonth = dateFns.addDays(dateFns.lastDayOfMonth(today), 1);
+  const firstDayMonth = dateFns.startOfMonth(today);
+  const lastDayMonth = dateFns.lastDayOfMonth(today);
   strDatefrom = firstDayMonth;
+
   strDateto = lastDayMonth;
+  strDateto.setHours(23);
+  strDateto.setMinutes(59);
+  strDateto.setSeconds(59);
   let getTimeMonthFrom = strDatefrom.getTime() / 1000;
   // console.log(getTimeMonthFrom);
   let getTimeMonthTo = strDateto.getTime() / 1000;
@@ -49,10 +53,13 @@ function getMonthByNumber(monthNumber, year) {
   // console.log({ month, monthNumber });
   console.log(testYear);
   const firstDayMonth = dateFns.addDays(dateFns.startOfMonth(testYear), 1);
-  const lastDayMonth = dateFns.addDays(dateFns.lastDayOfMonth(testYear), 1);
+  const lastDayMonth = dateFns.lastDayOfMonth(testYear);
 
   strDatefrom = firstDayMonth;
   strDateto = lastDayMonth;
+  strDateto.setHours(23);
+  strDateto.setMinutes(59);
+  strDateto.setSeconds(59);
   let getTimeMonthFrom = strDatefrom.getTime() / 1000;
   console.log(getTimeMonthFrom);
   let getTimeMonthTo = strDateto.getTime() / 1000;
